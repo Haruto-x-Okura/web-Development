@@ -1,0 +1,104 @@
+/* Dark Blue Horizon Theme */
+
+body 
+{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0a1a2f, #0f3d63);
+    color: #e6efff;
+}
+
+header 
+{
+    text-align: center;
+    padding: 80px 20px;
+}
+
+header h1 
+{
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+header p 
+{
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+
+.profile-photo 
+{
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #6fa9ff;
+    box-shadow: 0 0 12px #4ea3ff90;
+}
+
+
+section 
+{
+    width: 80%;
+    max-width: 900px;
+    margin: 60px auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+section h2 
+{
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.skills-list,
+.project-list {
+    list-style: none;
+    padding: 0;
+}
+
+.skills-list li,
+.project-list li {
+    background: rgba(255, 255, 255, 0.05);
+    margin: 8px 0;
+    padding: 10px 14px;
+    border-radius: 6px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+.social-link i {
+  font-size: 28px;
+  margin-right: 6px;
+  transition: 0.3s;
+}
+
+.social-link:hover i {
+  transform: scale(1.2);
+}
+.social-link {
+  color: #e6efff;
+  text-decoration: none;
+}
+.social-link i {
+  font-size: 28px;
+  margin-right: 6px;
+  transition: 0.3s;
+}
+
+.social-link:hover i {
+  transform: scale(1.2);
+}
+.social-link {
+  color: #e6efff;
+  text-decoration: none;
+}
+.social-link:hover {
+  color: #6fa9ff;
+}

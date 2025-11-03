@@ -18,3 +18,8 @@ p{
     font-size: 20px;
     text-align: center;
     color: rgb(13, 20, 88);}
+button{
+    align-items: center;
+    color: rgb(17, 1, 21);
+    background-color: rgb(133, 220, 34);
+}

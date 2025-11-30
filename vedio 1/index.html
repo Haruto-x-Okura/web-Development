@@ -3,33 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>first website</title>
+    <title>SRM Front Page</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: "Times New Roman", Times, serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .page {
+            background-color: white;
+            width: 210mm; /* A4 Width */
+            height: 297mm; /* A4 Height */
+            padding: 20mm; /* Standard Margins */
+            box-sizing: border-box;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            position: relative;
+            /* Flex layout to center content vertically */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* The border box inside the margins */
+        .border-container {
+            border: 3px solid black;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .uni-name {
+            font-size: 28pt;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 40px;
+            text-transform: uppercase;
+            color: #000; /* Black for standard printing */
+        }
+        
+        .uni-loc {
+            font-size: 18pt;
+            font-weight: bold;
+            margin-top: 10px;
+            text-transform: uppercase;
+            color: #000;
+        }
+
+        .logo-placeholder {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            width: 150px;
+            height: 150px;
+            border: 1px dashed #999;
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 10pt;
+            color: #666;
+        }
+        
+       
+        }
+
+        .subject {
+            font-size: 24pt;
+            font-weight: bold;
+            margin-top: 20px;
+            text-decoration: underline;
+            text-align: center;
+        }
+
+        .type {
+            font-size: 20pt;
+            margin-top: 15px;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .session {
+            font-size: 16pt;
+            margin-top: 30px;
+            font-weight: normal;
+        }
+
+        .footer-table {
+            margin-top: auto; /* Pushes table to bottom */
+            width: 100%;
+            margin-bottom: 40px;
+            border-collapse: collapse;
+        }
+
+        .footer-table td {
+            vertical-align: top;
+            width: 50%;
+            padding: 5px;
+        }
+
+        .footer-header {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-decoration: underline;
+        }
+
+        .footer-content {
+            font-size: 14pt;
+            line-height: 1.6;
+        }
+
+        /* Print Specifics to remove background/shadow */
+        @media print {
+            body { 
+                background: none; 
+                margin: 0;
+            }
+            .page { 
+                box-shadow: none; 
+                border: none;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0; /* Let printer handle margins or keep if necessary */
+            }
+            /* Ensure the border prints */
+            .border-container {
+                border: 3px solid black !important;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>My First Website</h1>
-    <table border="1">
-        <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Age</th>
-            <th>Gender</th>
-        </tr>
-        <tr>
-            <td>Harsh</td>
-            <td>Wardhan</td>
-            <td>19</td>
-            <td>Male</td>
-        </tr>
-        <tr>
-            <td>Haruto</td>
-            <td>Okura</td>
-            <td>19</td>
-            <td>Male</td>
-        </tr>
-        
-    <p>Welcome to my first website! my name is harsh wardhan</p>
-    <button>about</button>
-    <area> @styles
-    <link rel="stylesheet" href="styles.css">
+
+    <div class="page">
+        <div class="border-container">
+            
+            <!-- University Header -->
+            <div class="uni-name">SRM UNIVERSITY</div>
+            <div class="uni-loc">Delhi-NCR, Sonepat</div>
+
+            <!-- Logo Section -->
+            <div class="logo-placeholder">
+               <img src="srm.jpeg" alt="SRM Logo">
+                
+            </div>
+
+            <!-- Title Section -->
+            <div class="subject">C PROGRAMMING LAB</div>
+            <div class="type">Practical File</div>
+            <div class="session">Academic Session: 2025</div>
+
+            <!-- Footer / Signatures -->
+            <table class="footer-table">
+                <tr>
+                    <td>
+                        <div class="footer-header">Submitted By:</div>
+                        <div class="footer-content">
+                            <strong>Name:</strong> HARSH WARDHAN<br>
+                            <strong>Reg No:</strong> 10325210151<br>
+                            <strong>Course:</strong> B.Tech (CSE) Core<br>
+                            <strong>Semester:</strong> 1st
+                        </div>
+                    </td>
+                    <td style="text-align: left; padding-left: 40px;">
+                        <div class="footer-header">Submitted To:</div>
+                        <div class="footer-content">
+                            <strong>Name:</strong> ...................................<br>
+                            <strong>Designation:</strong> Assistant Professor<br>
+                            <strong>Department:</strong> CSE<br>
+                            <br>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
 </body>
 </html>

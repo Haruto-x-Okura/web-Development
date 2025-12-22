@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator with Desmos Graphing</title>
+    <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 400px 600px;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .calculator-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .graph-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* Display Screen */
+        .display {
+            background: #f7f7f7;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 60px;
+            font-size: 24px;
+            text-align: right;
+            word-wrap: break-word;
+            color: #333;
+        }
+
+        /* Button Grid */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .scientific-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Button Styles */
+        button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Number buttons */
+        .btn-number {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-number:hover {
+            background: #e0e0e0;
+        }
+
+        /* Operator buttons */
+        .btn-operator {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-operator:hover {
+            background: #5568d3;
+        }
+
+        /* Scientific function buttons */
+        .btn-function {
+            background: #764ba2;
+            color: white;
+            font-size: 16px;
+        }
+
+        .btn-function:hover {
+            background: #653a8a;
+        }
+
+        /* Special buttons */
+        .btn-clear {
+            background: #ff6b6b;
+            color: white;
+            grid-column: span 2;
+        }
+
+        .btn-clear:hover {
+            background: #ff5252;
+        }
+
+        .btn-equals {
+            background: #51cf66;
+            color: white;
+            grid-column: span 2;
+        }
+
+        .btn-equals:hover {
+            background: #40c057;
+        }
+
+        .btn-graph {
+            background: #339af0;
+            color: white;
+            width: 100%;
+            margin-top: 10px;
+            padding: 18px;
+            font-size: 20px;
+        }
+
+        .btn-graph:hover {
+            background: #228be6;
+        }
+
+        /* Desmos Graph Container */
+        #calculator {
+            width: 100%;
+            height: 500px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+
+        /* Instructions */
+        .instructions {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .instructions h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Calculator Section -->
+        <div class="calculator-section">
+            <h1>Scientific Calculator</h1>
+            
+            <!-- Display -->
+            <div class="display" id="display">0</div>
+            
+            <!-- Scientific Functions -->
+            <div class="scientific-buttons">
+                <button class="btn-function" onclick="addToDisplay('sin(')">sin</button>
+                <button class="btn-function" onclick="addToDisplay('cos(')">cos</button>
+                <button class="btn-function" onclick="addToDisplay('tan(')">tan</button>
+                <button class="btn-function" onclick="addToDisplay('log(')">log</button>
+                <button class="btn-function" onclick="addToDisplay('ln(')">ln</button>
+                <button class="btn-function" onclick="addToDisplay('sqrt(')">√</button>
+            </div>
+            
+            <!-- Main Buttons -->
+            <div class="buttons">
+                <button class="btn-number" onclick="addToDisplay('7')">7</button>
+                <button class="btn-number" onclick="addToDisplay('8')">8</button>
+                <button class="btn-number" onclick="addToDisplay('9')">9</button>
+                <button class="btn-operator" onclick="addToDisplay('/')">/</button>
+                
+                <button class="btn-number" onclick="addToDisplay('4')">4</button>
+                <button class="btn-number" onclick="addToDisplay('5')">5</button>
+                <button class="btn-number" onclick="addToDisplay('6')">6</button>
+                <button class="btn-operator" onclick="addToDisplay('*')">×</button>
+                
+                <button class="btn-number" onclick="addToDisplay('1')">1</button>
+                <button class="btn-number" onclick="addToDisplay('2')">2</button>
+                <button class="btn-number" onclick="addToDisplay('3')">3</button>
+                <button class="btn-operator" onclick="addToDisplay('-')">−</button>
+                
+                <button class="btn-number" onclick="addToDisplay('0')">0</button>
+                <button class="btn-number" onclick="addToDisplay('.')">.</button>
+                <button class="btn-operator" onclick="addToDisplay('^')">^</button>
+                <button class="btn-operator" onclick="addToDisplay('+')">+</button>
+                
+                <button class="btn-operator" onclick="addToDisplay('(')">(</button>
+                <button class="btn-operator" onclick="addToDisplay(')')">)</button>
+                <button class="btn-clear" onclick="clearDisplay()">Clear</button>
+                
+                <button class="btn-equals" onclick="calculate()">Calculate</button>
+                <button class="btn-equals" onclick="deleteLastChar()">Delete</button>
+            </div>
+            
+            <button class="btn-graph" onclick="graphExpression()">📊 Graph Expression</button>
+            
+            <!-- Instructions -->
+            <div class="instructions">
+                <h3>How to Use:</h3>
+                <ul>
+                    <li>Enter expressions using buttons or keyboard</li>
+                    <li>Use 'x' as variable for graphing (e.g., x^2, sin(x))</li>
+                    <li>Click "Graph Expression" to visualize</li>
+                    <li>Scientific functions: sin, cos, tan, log, ln, sqrt</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Graph Section -->
+        <div class="graph-section">
+            <h2>Desmos Graph</h2>
+            <div id="calculator"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Desmos Calculator
+        let calculator;
+        let currentExpression = '0';
+
+        // Initialize Desmos API when page loads
+        window.onload = function() {
+            const elt = document.getElementById('calculator');
+            calculator = Desmos.GraphingCalculator(elt, {
+                expressions: true,
+                settingsMenu: true,
+                zoomButtons: true,
+                expressionsCollapsed: false
+            });
+            
+            // Set initial view
+            calculator.setMathBounds({
+                left: -10,
+                right: 10,
+                bottom: -10,
+                top: 10
+            });
+        };
+
+        // Add value to display
+        function addToDisplay(value) {
+            const display = document.getElementById('display');
+            
+            // If display shows 0 or result, replace it
+            if (currentExpression === '0' || display.classList.contains('result')) {
+                currentExpression = value;
+                display.classList.remove('result');
+            } else {
+                currentExpression += value;
+            }
+            
+            display.textContent = currentExpression;
+        }
+
+        // Clear display
+        function clearDisplay() {
+            currentExpression = '0';
+            document.getElementById('display').textContent = currentExpression;
+            document.getElementById('display').classList.remove('result');
+        }
+
+        // Delete last character
+        function deleteLastChar() {
+            if (currentExpression.length > 1) {
+                currentExpression = currentExpression.slice(0, -1);
+            } else {
+                currentExpression = '0';
+            }
+            document.getElementById('display').textContent = currentExpression;
+        }
+
+        // Calculate expression using math.js
+        function calculate() {
+            const display = document.getElementById('display');
+            
+            try {
+                // Convert display expression to JavaScript-compatible format
+                let expr = currentExpression
+                    .replace(/\^/g, '**')  // Power operator
+                    .replace(/sqrt\(/g, 'Math.sqrt(')
+                    .replace(/sin\(/g, 'Math.sin(')
+                    .replace(/cos\(/g, 'Math.cos(')
+                    .replace(/tan\(/g, 'Math.tan(')
+                    .replace(/log\(/g, 'Math.log10(')
+                    .replace(/ln\(/g, 'Math.log(');
+                
+                // Safely evaluate using Function constructor (safer than eval)
+                const result = Function('"use strict"; return (' + expr + ')')();
+                
+                currentExpression = result.toString();
+                display.textContent = currentExpression;
+                display.classList.add('result');
+            } catch (error) {
+                display.textContent = 'Error';
+                currentExpression = '0';
+            }
+        }
+
+        // Graph expression using Desmos
+        function graphExpression() {
+            // Convert calculator expression to Desmos-compatible format
+            let desmosExpr = currentExpression
+                .replace(/\*/g, '')  // Remove explicit multiplication
+                .replace(/sqrt/g, 'sqrt')
+                .replace(/ln/g, 'ln')
+                .replace(/log/g, 'log');
+            
+            // Check if expression contains 'x' (variable for graphing)
+            if (!desmosExpr.includes('x')) {
+                // If no variable, add y= to graph as horizontal line
+                desmosExpr = 'y=' + desmosExpr;
+            } else {
+                // Add y= prefix for proper graphing
+                desmosExpr = 'y=' + desmosExpr;
+            }
+            
+            // Clear previous expressions and add new one
+            calculator.setBlank();
+            calculator.setExpression({
+                id: 'graph1',
+                latex: desmosExpr,
+                color: Desmos.Colors.BLUE
+            });
+            
+            // Reset view to standard bounds
+            calculator.setMathBounds({
+                left: -10,
+                right: 10,
+                bottom: -10,
+                top: 10
+            });
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+            
+            // Numbers and operators
+            if (/^[0-9+\-*/().]$/.test(key)) {
+                addToDisplay(key);
+            } else if (key === '^') {
+                addToDisplay('^');
+            } else if (key === 'Enter') {
+                calculate();
+            } else if (key === 'Escape') {
+                clearDisplay();
+            } else if (key === 'Backspace') {
+                event.preventDefault();
+                deleteLastChar();
+            }
+        });
+    </script>
+</body>
+</html>

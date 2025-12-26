@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scientific Calculator with Desmos Graphing</title>
-    <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
     <style>
         * {
             margin: 0;
@@ -24,9 +24,9 @@
 
         .container {
             display: grid;
-            grid-template-columns: 400px 600px;
+            grid-template-columns: 450px 650px;
             gap: 20px;
-            max-width: 1200px;
+            max-width: 1300px;
             width: 100%;
         }
 
@@ -35,6 +35,8 @@
             border-radius: 20px;
             padding: 25px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 95vh;
+            overflow-y: auto;
         }
 
         .graph-section {
@@ -66,7 +68,7 @@
             padding: 15px;
             margin-bottom: 20px;
             min-height: 60px;
-            font-size: 24px;
+            font-size: 22px;
             text-align: right;
             word-wrap: break-word;
             color: #333;
@@ -76,21 +78,35 @@
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
         .scientific-buttons {
             display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .advanced-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .special-buttons {
+            display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
         /* Button Styles */
         button {
-            padding: 15px;
-            font-size: 18px;
+            padding: 12px;
+            font-size: 16px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -131,18 +147,28 @@
         .btn-function {
             background: #764ba2;
             color: white;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .btn-function:hover {
             background: #653a8a;
         }
 
+        /* Advanced function buttons */
+        .btn-advanced {
+            background: #20c997;
+            color: white;
+            font-size: 14px;
+        }
+
+        .btn-advanced:hover {
+            background: #18a87b;
+        }
+
         /* Special buttons */
         .btn-clear {
             background: #ff6b6b;
             color: white;
-            grid-column: span 2;
         }
 
         .btn-clear:hover {
@@ -152,7 +178,6 @@
         .btn-equals {
             background: #51cf66;
             color: white;
-            grid-column: span 2;
         }
 
         .btn-equals:hover {
@@ -172,10 +197,14 @@
             background: #228be6;
         }
 
+        .btn-wide {
+            grid-column: span 2;
+        }
+
         /* Desmos Graph Container */
         #calculator {
             width: 100%;
-            height: 500px;
+            height: 550px;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
         }
@@ -186,14 +215,14 @@
             padding: 15px;
             background: #f8f9fa;
             border-radius: 10px;
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
         }
 
         .instructions h3 {
             color: #667eea;
             margin-bottom: 10px;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .instructions ul {
@@ -204,7 +233,15 @@
             margin-bottom: 5px;
         }
 
-        @media (max-width: 1024px) {
+        .section-label {
+            font-size: 12px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        @media (max-width: 1100px) {
             .container {
                 grid-template-columns: 1fr;
             }
@@ -220,17 +257,53 @@
             <!-- Display -->
             <div class="display" id="display">0</div>
             
-            <!-- Scientific Functions -->
+            <!-- Trigonometric Functions -->
+            <div class="section-label">Trigonometric Functions</div>
             <div class="scientific-buttons">
                 <button class="btn-function" onclick="addToDisplay('sin(')">sin</button>
                 <button class="btn-function" onclick="addToDisplay('cos(')">cos</button>
                 <button class="btn-function" onclick="addToDisplay('tan(')">tan</button>
-                <button class="btn-function" onclick="addToDisplay('log(')">log</button>
-                <button class="btn-function" onclick="addToDisplay('ln(')">ln</button>
-                <button class="btn-function" onclick="addToDisplay('sqrt(')">√</button>
+                <button class="btn-function" onclick="addToDisplay('asin(')">sin⁻¹</button>
+                <button class="btn-function" onclick="addToDisplay('acos(')">cos⁻¹</button>
+                <button class="btn-function" onclick="addToDisplay('atan(')">tan⁻¹</button>
+                <button class="btn-function" onclick="addToDisplay('sinh(')">sinh</button>
+                <button class="btn-function" onclick="addToDisplay('cosh(')">cosh</button>
+            </div>
+            
+            <!-- Logarithmic & Exponential Functions -->
+            <div class="section-label">Logarithmic & Exponential</div>
+            <div class="advanced-buttons">
+                <button class="btn-advanced" onclick="addToDisplay('log(')">log</button>
+                <button class="btn-advanced" onclick="addToDisplay('ln(')">ln</button>
+                <button class="btn-advanced" onclick="addToDisplay('exp(')">eˣ</button>
+                <button class="btn-advanced" onclick="addToDisplay('10^(')">10ˣ</button>
+                <button class="btn-advanced" onclick="addToDisplay('sqrt(')">√</button>
+                <button class="btn-advanced" onclick="addToDisplay('cbrt(')">∛</button>
+                <button class="btn-advanced" onclick="addToDisplay('abs(')">|x|</button>
+                <button class="btn-advanced" onclick="addToDisplay('floor(')">⌊x⌋</button>
+            </div>
+            
+            <!-- Powers & Variables -->
+            <div class="section-label">Powers & Variables</div>
+            <div class="special-buttons">
+                <button class="btn-advanced" onclick="addToDisplay('x')">x</button>
+                <button class="btn-advanced" onclick="addToDisplay('x^2')">x²</button>
+                <button class="btn-advanced" onclick="addToDisplay('x^3')">x³</button>
+                <button class="btn-advanced" onclick="addToDisplay('x^(')">xⁿ</button>
+                <button class="btn-advanced" onclick="addToDisplay('1/x')">1/x</button>
+                <button class="btn-advanced" onclick="addToDisplay('2^(')">2ˣ</button>
+            </div>
+
+            <!-- Constants -->
+            <div class="section-label">Constants</div>
+            <div class="special-buttons">
+                <button class="btn-advanced" onclick="addToDisplay('3.14159')">π</button>
+                <button class="btn-advanced" onclick="addToDisplay('2.71828')">e</button>
+                <button class="btn-advanced" onclick="addToDisplay('1.41421')">√2</button>
             </div>
             
             <!-- Main Buttons -->
+            <div class="section-label">Basic Operations</div>
             <div class="buttons">
                 <button class="btn-number" onclick="addToDisplay('7')">7</button>
                 <button class="btn-number" onclick="addToDisplay('8')">8</button>
@@ -254,10 +327,15 @@
                 
                 <button class="btn-operator" onclick="addToDisplay('(')">(</button>
                 <button class="btn-operator" onclick="addToDisplay(')')">)</button>
+                <button class="btn-operator" onclick="addToDisplay('%')">%</button>
+                <button class="btn-operator" onclick="addToDisplay('!')">!</button>
+            </div>
+            
+            <!-- Control Buttons -->
+            <div class="buttons">
                 <button class="btn-clear" onclick="clearDisplay()">Clear</button>
-                
-                <button class="btn-equals" onclick="calculate()">Calculate</button>
-                <button class="btn-equals" onclick="deleteLastChar()">Delete</button>
+                <button class="btn-clear" onclick="deleteLastChar()">Delete</button>
+                <button class="btn-equals btn-wide" onclick="calculate()">Calculate</button>
             </div>
             
             <button class="btn-graph" onclick="graphExpression()">📊 Graph Expression</button>
@@ -266,44 +344,111 @@
             <div class="instructions">
                 <h3>How to Use:</h3>
                 <ul>
-                    <li>Enter expressions using buttons or keyboard</li>
-                    <li>Use 'x' as variable for graphing (e.g., x^2, sin(x))</li>
-                    <li>Click "Graph Expression" to visualize</li>
-                    <li>Scientific functions: sin, cos, tan, log, ln, sqrt</li>
+                    <li>Click buttons or use keyboard to enter expressions</li>
+                    <li>Use 'x' as variable for graphing (e.g., x^2, sin(x), x^3)</li>
+                    <li>Click "Graph Expression" to visualize on Desmos</li>
+                    <li>Supports all trigonometric, logarithmic, and power functions</li>
+                    <li>Constants: π (pi), e (Euler's number), √2</li>
                 </ul>
             </div>
         </div>
         
         <!-- Graph Section -->
         <div class="graph-section">
-            <h2>Desmos Graph</h2>
+            <h2>Desmos Graph Visualization</h2>
             <div id="calculator"></div>
         </div>
     </div>
 
     <script>
         // Initialize Desmos Calculator
-        let calculator;
+        let calculator = null;
         let currentExpression = '0';
+        let calculatorReady = false;
 
-        // Initialize Desmos API when page loads
-        window.onload = function() {
-            const elt = document.getElementById('calculator');
-            calculator = Desmos.GraphingCalculator(elt, {
-                expressions: true,
-                settingsMenu: true,
-                zoomButtons: true,
-                expressionsCollapsed: false
+        // Load Desmos API dynamically
+        function loadDesmosAPI() {
+            return new Promise((resolve, reject) => {
+                // Check if already loaded
+                if (typeof Desmos !== 'undefined') {
+                    resolve();
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = 'https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6';
+                script.onload = () => {
+                    console.log('Desmos API loaded successfully');
+                    resolve();
+                };
+                script.onerror = () => {
+                    console.error('Failed to load Desmos API');
+                    reject(new Error('Failed to load Desmos API'));
+                };
+                document.head.appendChild(script);
             });
-            
-            // Set initial view
-            calculator.setMathBounds({
-                left: -10,
-                right: 10,
-                bottom: -10,
-                top: 10
-            });
-        };
+        }
+
+        // Initialize Desmos calculator
+        async function initializeDesmos() {
+            try {
+                // Load the API
+                await loadDesmosAPI();
+                
+                // Wait a bit for Desmos to be fully ready
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const elt = document.getElementById('calculator');
+                
+                if (typeof Desmos === 'undefined') {
+                    throw new Error('Desmos API not available');
+                }
+                
+                calculator = Desmos.GraphingCalculator(elt, {
+                    expressions: true,
+                    settingsMenu: true,
+                    zoomButtons: true,
+                    expressionsCollapsed: false
+                });
+                
+                // Set initial view
+                calculator.setMathBounds({
+                    left: -10,
+                    right: 10,
+                    bottom: -10,
+                    top: 10
+                });
+                
+                calculatorReady = true;
+                console.log('Desmos calculator initialized successfully');
+                
+                // Show success message in the graph area briefly
+                const graphDiv = document.getElementById('calculator');
+                const originalBg = graphDiv.style.background;
+                graphDiv.style.background = '#e7f5ff';
+                setTimeout(() => {
+                    graphDiv.style.background = originalBg;
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Error initializing Desmos:', error);
+                const elt = document.getElementById('calculator');
+                elt.innerHTML = `
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; padding: 20px; text-align: center;">
+                        <h3 style="color: #ff6b6b; margin-bottom: 15px;">⚠️ Graph Not Available</h3>
+                        <p style="color: #666; margin-bottom: 10px;">The Desmos graphing library failed to load.</p>
+                        <p style="color: #666; margin-bottom: 20px;">This might happen in restricted environments.</p>
+                        <button onclick="location.reload()" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                            Retry Loading
+                        </button>
+                        <p style="color: #999; margin-top: 20px; font-size: 14px;">The calculator functions still work!</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initializeDesmos);
 
         // Add value to display
         function addToDisplay(value) {
@@ -337,7 +482,18 @@
             document.getElementById('display').textContent = currentExpression;
         }
 
-        // Calculate expression using math.js
+        // Factorial function
+        function factorial(n) {
+            if (n < 0) return NaN;
+            if (n === 0 || n === 1) return 1;
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        // Calculate expression
         function calculate() {
             const display = document.getElementById('display');
             
@@ -346,14 +502,29 @@
                 let expr = currentExpression
                     .replace(/\^/g, '**')  // Power operator
                     .replace(/sqrt\(/g, 'Math.sqrt(')
+                    .replace(/cbrt\(/g, 'Math.cbrt(')
                     .replace(/sin\(/g, 'Math.sin(')
                     .replace(/cos\(/g, 'Math.cos(')
                     .replace(/tan\(/g, 'Math.tan(')
+                    .replace(/asin\(/g, 'Math.asin(')
+                    .replace(/acos\(/g, 'Math.acos(')
+                    .replace(/atan\(/g, 'Math.atan(')
+                    .replace(/sinh\(/g, 'Math.sinh(')
+                    .replace(/cosh\(/g, 'Math.cosh(')
                     .replace(/log\(/g, 'Math.log10(')
-                    .replace(/ln\(/g, 'Math.log(');
+                    .replace(/ln\(/g, 'Math.log(')
+                    .replace(/exp\(/g, 'Math.exp(')
+                    .replace(/abs\(/g, 'Math.abs(')
+                    .replace(/floor\(/g, 'Math.floor(');
                 
-                // Safely evaluate using Function constructor (safer than eval)
-                const result = Function('"use strict"; return (' + expr + ')')();
+                // Handle factorial
+                expr = expr.replace(/(\d+)!/g, 'factorial($1)');
+                
+                // Handle percentage
+                expr = expr.replace(/(\d+(?:\.\d+)?)%/g, '($1/100)');
+                
+                // Safely evaluate using Function constructor
+                const result = Function('factorial', '"use strict"; return (' + expr + ')')(factorial);
                 
                 currentExpression = result.toString();
                 display.textContent = currentExpression;
@@ -366,37 +537,73 @@
 
         // Graph expression using Desmos
         function graphExpression() {
-            // Convert calculator expression to Desmos-compatible format
-            let desmosExpr = currentExpression
-                .replace(/\*/g, '')  // Remove explicit multiplication
-                .replace(/sqrt/g, 'sqrt')
-                .replace(/ln/g, 'ln')
-                .replace(/log/g, 'log');
-            
-            // Check if expression contains 'x' (variable for graphing)
-            if (!desmosExpr.includes('x')) {
-                // If no variable, add y= to graph as horizontal line
-                desmosExpr = 'y=' + desmosExpr;
-            } else {
-                // Add y= prefix for proper graphing
-                desmosExpr = 'y=' + desmosExpr;
+            try {
+                // Check if calculator is ready
+                if (!calculatorReady || !calculator) {
+                    alert('⚠️ Graphing Not Available\n\nThe Desmos API failed to load in this environment.\n\nThe calculator still works for calculations!\n\nTo use graphing:\n1. Copy this code to a local HTML file\n2. Open it in your browser\n3. Make sure you have internet connection');
+                    return;
+                }
+                
+                // Get the current expression
+                let desmosExpr = currentExpression;
+                
+                // Check if expression is empty or just 0
+                if (!desmosExpr || desmosExpr === '0') {
+                    alert('Please enter an expression first!\n\nTry: x^2 or sin(x) or x^3');
+                    return;
+                }
+                
+                // Convert calculator expression to Desmos-compatible format
+                desmosExpr = desmosExpr
+                    .replace(/sqrt/g, '\\sqrt')
+                    .replace(/cbrt/g, '\\sqrt[3]')
+                    .replace(/\^/g, '^')
+                    .replace(/asin/g, '\\arcsin')
+                    .replace(/acos/g, '\\arccos')
+                    .replace(/atan/g, '\\arctan')
+                    .replace(/sinh/g, '\\sinh')
+                    .replace(/cosh/g, '\\cosh')
+                    .replace(/abs/g, '\\abs')
+                    .replace(/floor/g, '\\floor')
+                    .replace(/exp/g, '\\exp')
+                    .replace(/\*/g, '\\cdot ')
+                    .replace(/ln/g, '\\ln')
+                    .replace(/log/g, '\\log');
+                
+                // Check if expression contains 'x' (variable for graphing)
+                if (!desmosExpr.includes('x')) {
+                    // If no variable, warn user
+                    const result = confirm('No variable "x" found in expression.\n\nGraph as horizontal line y=' + desmosExpr + '?');
+                    if (!result) {
+                        return;
+                    }
+                    desmosExpr = 'y=' + desmosExpr;
+                } else {
+                    // Add y= prefix for proper graphing
+                    desmosExpr = 'y=' + desmosExpr;
+                }
+                
+                // Clear previous expressions and add new one
+                calculator.setBlank();
+                calculator.setExpression({
+                    id: 'graph1',
+                    latex: desmosExpr,
+                    color: Desmos.Colors.BLUE
+                });
+                
+                // Reset view to standard bounds
+                calculator.setMathBounds({
+                    left: -10,
+                    right: 10,
+                    bottom: -10,
+                    top: 10
+                });
+                
+                console.log('Graphed expression:', desmosExpr);
+            } catch (error) {
+                alert('Error graphing expression!\n\nTry simpler expressions like:\n• x^2\n• sin(x)\n• x^3-2*x\n\nError: ' + error.message);
+                console.error('Graph error:', error);
             }
-            
-            // Clear previous expressions and add new one
-            calculator.setBlank();
-            calculator.setExpression({
-                id: 'graph1',
-                latex: desmosExpr,
-                color: Desmos.Colors.BLUE
-            });
-            
-            // Reset view to standard bounds
-            calculator.setMathBounds({
-                left: -10,
-                right: 10,
-                bottom: -10,
-                top: 10
-            });
         }
 
         // Keyboard support
@@ -408,6 +615,8 @@
                 addToDisplay(key);
             } else if (key === '^') {
                 addToDisplay('^');
+            } else if (key === 'x' || key === 'X') {
+                addToDisplay('x');
             } else if (key === 'Enter') {
                 calculate();
             } else if (key === 'Escape') {
@@ -415,6 +624,10 @@
             } else if (key === 'Backspace') {
                 event.preventDefault();
                 deleteLastChar();
+            } else if (key === '%') {
+                addToDisplay('%');
+            } else if (key === '!') {
+                addToDisplay('!');
             }
         });
     </script>
